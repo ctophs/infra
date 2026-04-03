@@ -4,21 +4,21 @@ locals {
 }
 
 stack "dev" {
-  source = "../../../stacks/environment"
+  source = "../../../stacks/container-app-environment"
   path   = "dev"
   values = {
-    name                = "xxx-dev"
+    name                = "cae-dev"
     location            = local.location
-    resource_group_name = "rg-xxx-dev"
+    resource_group_name = "rg-cae-dev"
   }
 }
 
 stack "prod" {
-  source = "../../../stacks/environment"
+  source = "../../../stacks/container-app-environment"
   path   = "prod"
   values = {
-    name                = "xxx-prod"
+    name                = "cae-prod"
     location            = local.location
-    resource_group_name = "rg-xxx-prod"
+    resource_group_name = "rg-cae-prod"
   }
 }
