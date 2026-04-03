@@ -2,7 +2,7 @@ unit "resource-group" {
   source = "${get_repo_root()}//units/resource-group"
   path   = "resource-group"
   values = {
-    name     = values.name
+    name     = values.resource_group_name
     location = values.location
   }
 }
