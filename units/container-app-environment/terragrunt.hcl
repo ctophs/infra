@@ -18,7 +18,8 @@ dependency "resource_group" {
 }
 
 inputs = {
-  name                = values.name
-  location            = values.location
-  resource_group_name = dependency.resource_group.outputs.name
+  name                     = values.name
+  location                 = values.location
+  resource_group_name      = dependency.resource_group.outputs.name
+  infrastructure_subnet_id = try(values.infrastructure_subnet_id, null)
 }

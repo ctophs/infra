@@ -12,7 +12,8 @@
       "WebFetch(domain:www.gruntwork.io)",
       "Bash(terragrunt stack:*)",
       "WebFetch(domain:docs.gruntwork.io)",
-      "Bash(terragrunt hcl:*)"
+      "Bash(terragrunt hcl:*)",
+      "Bash(terraform test:*)"
     ]
   }
 }

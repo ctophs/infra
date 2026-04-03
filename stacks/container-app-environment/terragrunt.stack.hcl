@@ -11,8 +11,9 @@ unit "cae" {
   source = "${get_repo_root()}//units/container-app-environment"
   path   = "cae"
   values = {
-    name     = values.name
-    location = values.location
+    name                     = values.name
+    location                 = values.location
+    infrastructure_subnet_id = try(values.infrastructure_subnet_id, null)
   }
 }
 
