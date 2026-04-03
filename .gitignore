@@ -1,0 +1,7 @@
+.terragrunt-stack
+.terragrunt-cache
+.terraform
+terraform.tfvars
+*.tfstate
+*.tfstate.backup
+*.tfstate.lock.info
