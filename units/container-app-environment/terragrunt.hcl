@@ -11,7 +11,9 @@ dependency "resource_group" {
   config_path = "../resource-group"
 
   mock_outputs = {
-    name = "mockname"
+    id       = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mockname"
+    name     = "mockname"
+    location = "westeurope"
   }
 }
 
