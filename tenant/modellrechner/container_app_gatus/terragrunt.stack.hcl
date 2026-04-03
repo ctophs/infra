@@ -7,7 +7,8 @@ stack "dev" {
   source = "../../../stacks/container-app-workload"
   path   = "dev"
   values = {
-    name = "gatus-dev"
+    name     = "gatus-dev"
+    location = local.location
     template = {
       min_replicas = 0
       max_replicas = 1
@@ -30,7 +31,8 @@ stack "prod" {
   source = "../../../stacks/container-app-workload"
   path   = "prod"
   values = {
-    name = "gatus-prod"
+    name     = "gatus-prod"
+    location = local.location
     template = {
       min_replicas = 1
       max_replicas = 3

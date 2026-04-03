@@ -1,3 +1,12 @@
+unit "uami" {
+  source = "${get_repo_root()}//units/uami"
+  path   = "uami"
+  values = {
+    name     = "${values.name}-uami"
+    location = values.location
+  }
+}
+
 unit "container-app" {
   source = "${get_repo_root()}//units/container-app"
   path   = "container-app"
