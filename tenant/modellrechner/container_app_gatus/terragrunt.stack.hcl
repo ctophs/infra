@@ -4,7 +4,7 @@ locals {
 }
 
 stack "dev" {
-  source = "../../../stacks/container-app-workload"
+  source = "../../../stacks/container-app"
   path   = "dev"
   values = {
     name     = "gatus-dev"
@@ -28,7 +28,7 @@ stack "dev" {
 }
 
 stack "prod" {
-  source = "../../../stacks/container-app-workload"
+  source = "../../../stacks/container-app"
   path   = "prod"
   values = {
     name     = "gatus-prod"
