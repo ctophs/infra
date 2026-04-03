@@ -1,5 +1,5 @@
 unit "resource-group" {
-  source = "//units/resource-group"
+  source = "${get_repo_root()}//units/resource-group"
   path   = "resource-group"
   values = {
     name     = values.name
@@ -8,7 +8,7 @@ unit "resource-group" {
 }
 
 unit "cae" {
-  source = "//units/container-app-environment"
+  source = "${get_repo_root()}//units/container-app-environment"
   path   = "cae"
   values = {
     name     = values.name
@@ -17,7 +17,7 @@ unit "cae" {
 }
 
 unit "uami" {
-  source = "//units/uami"
+  source = "${get_repo_root()}//units/uami"
   path   = "uami"
   values = {
     name     = values.name

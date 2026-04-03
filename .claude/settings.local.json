@@ -2,7 +2,16 @@
   "permissions": {
     "allow": [
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(tenv terragrunt:*)",
+      "Bash(tenv tg:*)",
+      "WebFetch(domain:docs.terragrunt.com)",
+      "WebSearch",
+      "WebFetch(domain:terragrunt.gruntwork.io)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.gruntwork.io)",
+      "Bash(terragrunt stack:*)",
+      "WebFetch(domain:docs.gruntwork.io)"
     ]
   }
 }
