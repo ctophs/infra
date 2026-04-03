@@ -20,7 +20,7 @@ stack "dev" {
       }]
     }
     ingress = {
-      external_enabled = true
+      external_enabled = false
       target_port      = 8080
     }
   }
@@ -43,7 +43,7 @@ stack "prod" {
       }]
     }
     ingress = {
-      external_enabled = true
+      external_enabled = false
       target_port      = 8080
     }
   }
