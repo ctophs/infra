@@ -11,7 +11,8 @@
       "WebFetch(domain:github.com)",
       "WebFetch(domain:www.gruntwork.io)",
       "Bash(terragrunt stack:*)",
-      "WebFetch(domain:docs.gruntwork.io)"
+      "WebFetch(domain:docs.gruntwork.io)",
+      "Bash(terragrunt hcl:*)"
     ]
   }
 }
