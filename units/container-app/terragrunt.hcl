@@ -3,7 +3,7 @@ include "root" {
 }
 
 terraform {
-  source = "../../modules/container-app"
+  source = "${get_repo_root()}//modules/container-app"
 }
 
 locals {

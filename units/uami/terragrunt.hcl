@@ -3,7 +3,7 @@ include "root" {
 }
 
 terraform {
-  source = "../../modules/uami"
+  source = "${get_repo_root()}//modules/uami"
 }
 
 dependency "resource_group" {
