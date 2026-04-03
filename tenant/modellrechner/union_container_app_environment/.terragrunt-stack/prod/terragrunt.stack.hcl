@@ -1,0 +1,26 @@
+unit "resource-group" {
+  source = "${get_repo_root()}//units/resource-group"
+  path   = "resource-group"
+  values = {
+    name     = values.resource_group_name
+    location = values.location
+  }
+}
+
+unit "cae" {
+  source = "${get_repo_root()}//units/container-app-environment"
+  path   = "cae"
+  values = {
+    name     = values.name
+    location = values.location
+  }
+}
+
+unit "uami" {
+  source = "${get_repo_root()}//units/uami"
+  path   = "uami"
+  values = {
+    name     = values.name
+    location = values.location
+  }
+}
