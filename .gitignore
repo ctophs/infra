@@ -1,8 +1,22 @@
-.terragrunt-stack
-.terragrunt-cache
-.terraform
-terraform.tfvars
+# Terraform State-Dateien — enthalten sensible Infrastruktur-Informationen
 *.tfstate
 *.tfstate.backup
 *.tfstate.lock.info
+
+# Terraform Provider-Binaries und Plugin-Cache — werden lokal heruntergeladen
+.terraform
+
+# Terraform Provider-Versionspin — wird pro Umgebung lokal generiert
 .terraform.lock.hcl
+
+# Terragrunt Cache — lokal generierte Zwischendateien
+.terragrunt-cache
+
+# Terragrunt Stack-Ausgabe — wird bei jedem stack generate neu erzeugt
+.terragrunt-stack
+
+# Generierter Provider-Block von Terragrunt root.hcl — nicht manuell gepflegt
+providers.tf
+
+# Terraform Variablendatei — kann sensible Werte enthalten
+terraform.tfvars
