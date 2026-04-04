@@ -3,10 +3,13 @@ locals {
   location       = local.mgmt_group.locals.location
   name           = local.mgmt_group.locals.name
   component_name = "gatus"
+
+  catalog_url = "git::file:///home/user/terragrunt/catalog"
+  catalog_ref = "main"
 }
 
 stack "dev" {
-  source = "../../../stacks/container_app"
+  source = "${local.catalog_url}//stacks/container_app?ref=${local.catalog_ref}"
   path   = "dev"
   values = {
     name                = local.component_name
@@ -33,7 +36,7 @@ stack "dev" {
 }
 
 stack "prod" {
-  source = "../../../stacks/container_app"
+  source = "${local.catalog_url}//stacks/container_app?ref=${local.catalog_ref}"
   path   = "prod"
   values = {
     name                = local.component_name
