@@ -5,7 +5,7 @@ locals {
   component_name = "cae"
 
   catalog_url = "git::file:///home/user/terragrunt/catalog"
-  catalog_ref = "main"
+  catalog_ref = "master"
 }
 
 stack "dev" {
