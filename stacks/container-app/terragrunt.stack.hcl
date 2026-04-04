@@ -17,5 +17,6 @@ unit "container-app" {
     ingress       = try(values.ingress, null)
     identity      = try(values.identity, null)
     tags          = try(values.tags, {})
+    secrets       = try(values.secrets, [])
   }
 }

@@ -22,7 +22,7 @@ variable "revision_mode" {
 variable "template" {
   type = object({
     min_replicas = optional(number, 0)
-    max_replicas = optional(number, 10)
+    max_replicas = optional(number, 1)
     containers = list(object({
       name   = string
       image  = string
@@ -55,6 +55,15 @@ variable "identity" {
   })
   description = "Managed identity configuration."
   default     = null
+}
+
+variable "secrets" {
+  type = list(object({
+    name  = string
+    value = string
+  }))
+  description = "Secrets to configure on the Container App."
+  default     = []
 }
 
 variable "tags" {

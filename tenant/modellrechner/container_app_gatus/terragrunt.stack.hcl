@@ -12,8 +12,6 @@ stack "dev" {
     name     = local.component_name
     location = local.location
     template = {
-      min_replicas = 0
-      max_replicas = 1
       containers = [{
         name   = "gatus"
         image  = "ghcr.io/twin/gatus:latest"
@@ -26,6 +24,10 @@ stack "dev" {
       external_enabled = false
       target_port      = 8080
     }
+    secrets = [{
+      name  = "example"
+      value = "example"
+    }]
   }
 }
 

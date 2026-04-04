@@ -1,5 +1,5 @@
 locals {
-  name     = toupper(basename(get_terragrunt_dir()))
+  name     = upper(basename(get_terragrunt_dir()))
   location = "westeurope"
 
   subscriptions = {
