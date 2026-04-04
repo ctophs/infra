@@ -1,13 +1,15 @@
 locals {
-  mgmt_group = read_terragrunt_config(find_in_parent_folders("managementgroup.hcl"))
-  location   = local.mgmt_group.locals.location
+  mgmt_group     = read_terragrunt_config(find_in_parent_folders("managementgroup.hcl"))
+  location       = local.mgmt_group.locals.location
+  name           = local.mgmt_group.locals.name
+  component_name = "gatus"
 }
 
 stack "dev" {
   source = "../../../stacks/container-app"
   path   = "dev"
   values = {
-    name     = "gatus-dev"
+    name     = local.component_name
     location = local.location
     template = {
       min_replicas = 0
@@ -31,7 +33,7 @@ stack "prod" {
   source = "../../../stacks/container-app"
   path   = "prod"
   values = {
-    name     = "gatus-prod"
+    name     = local.component_name
     location = local.location
     template = {
       min_replicas = 1
