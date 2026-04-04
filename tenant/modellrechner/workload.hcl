@@ -2,7 +2,14 @@
 #
 # Bündelt managementgroup.hcl (MG-spezifisch: name, location, subscriptions)
 # und catalog.hcl (repo-weit: catalog url + ref) in einem einzelnen Read,
-# damit Workload-Stacks nur noch diese eine Datei einlesen müssen.
+# damit Workload-Stacks nur noch diese eine Datei einlesen m��ssen.
+#
+# managementgroup.hcl bleibt bewusst als eigene Datei bestehen:
+# Sie beschreibt die Identität der Management-Group (Name, Region,
+# Subscriptions) — Daten, die sich selten ändern und fachlich nichts
+# mit dem Catalog zu tun haben. workload.hcl hingegen ist eine rein
+# technische Komfort-Schicht, die diese Quellen für Workloads bündelt.
+# Die Trennung wahrt das Single-Responsibility-Prinzip.
 #
 # Bei einer neuen Management-Group diese Datei unverändert kopieren —
 # managementgroup.hcl wird relativ zum aufrufenden Workload-Verzeichnis
