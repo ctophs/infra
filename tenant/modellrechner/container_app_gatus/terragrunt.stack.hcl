@@ -1,3 +1,6 @@
+# Terragrunt-Stacks unterstuetzen kein include — daher muessen die
+# gemeinsamen Locals aus workload.hcl hier explizit ausgepackt werden.
+# Nur component_name ist workload-spezifisch, der Rest ist Boilerplate.
 locals {
   workload       = read_terragrunt_config(find_in_parent_folders("workload.hcl"))
   name           = local.workload.locals.name
