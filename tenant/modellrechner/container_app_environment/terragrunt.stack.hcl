@@ -4,12 +4,11 @@ locals {
   name           = local.mgmt_group.locals.name
   component_name = "cae"
 
-  catalog_url = "git::file:///home/user/terragrunt/catalog"
-  catalog_ref = "master"
+  catalog = read_terragrunt_config(find_in_parent_folders("catalog.hcl"))
 }
 
 stack "dev" {
-  source = "${local.catalog_url}//stacks/container_app_environment?ref=${local.catalog_ref}"
+  source = "${local.catalog.locals.url}//stacks/container_app_environment?ref=${local.catalog.locals.ref}"
   path   = "dev"
   values = {
     name                     = local.component_name
@@ -21,7 +20,7 @@ stack "dev" {
 }
 
 stack "prod" {
-  source = "${local.catalog_url}//stacks/container_app_environment?ref=${local.catalog_ref}"
+  source = "${local.catalog.locals.url}//stacks/container_app_environment?ref=${local.catalog.locals.ref}"
   path   = "prod"
   values = {
     name                     = local.component_name
