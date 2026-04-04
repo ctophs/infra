@@ -32,7 +32,7 @@ dependency "cae" {
 }
 
 dependency "resource_group" {
-  config_path = "../../../../../container_app_environment/.terragrunt-stack/${local.env}/.terragrunt-stack/resource-group"
+  config_path = "../../../../../container_app_environment/.terragrunt-stack/${local.env}/.terragrunt-stack/cae-resource-group"
 
   mock_outputs = {
     id       = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mockname"

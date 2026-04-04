@@ -9,7 +9,7 @@ output "name" {
 }
 
 output "fqdn" {
-  value       = azurerm_container_app.this.ingress[0].fqdn
+  value       = try(azurerm_container_app.this.ingress[0].fqdn, null)
   description = "FQDN of the Container App ingress. Only set when ingress is configured."
 }
 

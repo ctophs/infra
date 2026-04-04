@@ -11,7 +11,7 @@ stack "dev" {
   values = {
     name                = local.component_name
     location            = local.location
-    resource_group_name = "rg-${lower(local.name)}-dev-cae"
+    resource_group_name = "rg-${local.name}-dev-cae"
     template = {
       containers = [{
         name   = "gatus"
@@ -38,7 +38,7 @@ stack "prod" {
   values = {
     name                = local.component_name
     location            = local.location
-    resource_group_name = "rg-${lower(local.name)}-prod-cae"
+    resource_group_name = "rg-${local.name}-prod-cae"
     template = {
       min_replicas = 1
       max_replicas = 3
