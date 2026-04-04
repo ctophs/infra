@@ -10,6 +10,10 @@ EOF
 }
 
 locals {
+  catalog_config = read_terragrunt_config(find_in_parent_folders("catalog.hcl"))
+  catalog_url    = local.catalog_config.locals.url
+  catalog_ref    = local.catalog_config.locals.ref
+
   tenant_config           = read_terragrunt_config(find_in_parent_folders("tenant.hcl"))
   management_group_config = read_terragrunt_config(find_in_parent_folders("managementgroup.hcl"))
 

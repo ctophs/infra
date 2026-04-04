@@ -1,14 +1,14 @@
 locals {
-  mgmt_group     = read_terragrunt_config(find_in_parent_folders("managementgroup.hcl"))
-  location       = local.mgmt_group.locals.location
-  name           = local.mgmt_group.locals.name
+  workload       = read_terragrunt_config(find_in_parent_folders("workload.hcl"))
+  name           = local.workload.locals.name
+  location       = local.workload.locals.location
+  catalog_url    = local.workload.locals.catalog_url
+  catalog_ref    = local.workload.locals.catalog_ref
   component_name = "cae"
-
-  catalog = read_terragrunt_config(find_in_parent_folders("catalog.hcl"))
 }
 
 stack "dev" {
-  source = "${local.catalog.locals.url}//stacks/container_app_environment?ref=${local.catalog.locals.ref}"
+  source = "${local.catalog_url}//stacks/container_app_environment?ref=${local.catalog_ref}"
   path   = "dev"
   values = {
     name                     = local.component_name
@@ -20,7 +20,7 @@ stack "dev" {
 }
 
 stack "prod" {
-  source = "${local.catalog.locals.url}//stacks/container_app_environment?ref=${local.catalog.locals.ref}"
+  source = "${local.catalog_url}//stacks/container_app_environment?ref=${local.catalog_ref}"
   path   = "prod"
   values = {
     name                     = local.component_name
