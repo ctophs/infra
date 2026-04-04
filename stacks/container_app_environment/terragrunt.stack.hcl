@@ -1,5 +1,5 @@
 unit "cae-resource-group" {
-  source = "${get_repo_root()}//units/resource-group"
+  source = "${get_repo_root()}//units/resource_group"
   path   = "cae-resource-group"
   values = {
     name     = values.resource_group_name
@@ -8,7 +8,7 @@ unit "cae-resource-group" {
 }
 
 unit "cae" {
-  source = "${get_repo_root()}//units/container-app-environment"
+  source = "${get_repo_root()}//units/container_app_environment"
   path   = "cae"
   values = {
     name                     = values.name
@@ -18,7 +18,7 @@ unit "cae" {
 }
 
 unit "uami-resource-group" {
-  source = "${get_repo_root()}//units/resource-group"
+  source = "${get_repo_root()}//units/resource_group"
   path   = "uami-resource-group"
   values = {
     name     = values.uami_resource_group_name

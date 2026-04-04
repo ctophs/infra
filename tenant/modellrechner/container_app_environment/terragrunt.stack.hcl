@@ -6,7 +6,7 @@ locals {
 }
 
 stack "dev" {
-  source = "../../../stacks/container-app-environment"
+  source = "../../../stacks/container_app_environment"
   path   = "dev"
   values = {
     name                     = local.component_name
@@ -18,7 +18,7 @@ stack "dev" {
 }
 
 stack "prod" {
-  source = "../../../stacks/container-app-environment"
+  source = "../../../stacks/container_app_environment"
   path   = "prod"
   values = {
     name                     = local.component_name

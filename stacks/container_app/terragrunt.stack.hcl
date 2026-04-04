@@ -9,7 +9,7 @@ unit "uami" {
 }
 
 unit "container-app" {
-  source = "${get_repo_root()}//units/container-app"
+  source = "${get_repo_root()}//units/container_app"
   path   = "container-app"
   values = {
     name          = values.name
