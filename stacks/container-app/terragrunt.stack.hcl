@@ -2,8 +2,9 @@ unit "uami" {
   source = "${get_repo_root()}//units/uami"
   path   = "uami"
   values = {
-    name     = "${values.name}-uami"
-    location = values.location
+    name                = "${values.name}-uami"
+    location            = values.location
+    resource_group_name = values.resource_group_name
   }
 }
 

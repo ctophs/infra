@@ -8,7 +8,7 @@ terraform {
 
 
 dependency "resource_group" {
-  config_path = "../resource-group"
+  config_path = "../component-resource-group"
 
   mock_outputs = {
     id       = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mockname"

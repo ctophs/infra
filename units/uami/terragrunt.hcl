@@ -6,18 +6,8 @@ terraform {
   source = "${get_repo_root()}//modules/uami"
 }
 
-dependency "resource_group" {
-  config_path = "../resource-group"
-
-  mock_outputs = {
-    id       = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mockname"
-    name     = "mockname"
-    location = "westeurope"
-  }
-}
-
 inputs = {
   name                = values.name
   location            = values.location
-  resource_group_name = dependency.resource_group.outputs.name
+  resource_group_name = values.resource_group_name
 }

@@ -11,7 +11,8 @@ stack "dev" {
   values = {
     name                     = local.component_name
     location                 = local.location
-    resource_group_name      = "rg-${local.name}-dev-${local.component_name}"
+    resource_group_name      = "rg-${lower(local.name)}-dev-${local.component_name}"
+    uami_resource_group_name = "rg-${lower(local.name)}-dev-${local.component_name}-uami"
     infrastructure_subnet_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-cae-dev/providers/Microsoft.Network/virtualNetworks/vnet-dev/subnets/snet-cae-dev"
   }
 }
@@ -22,7 +23,8 @@ stack "prod" {
   values = {
     name                     = local.component_name
     location                 = local.location
-    resource_group_name      = "rg-${local.name}-prod-${local.component_name}"
+    resource_group_name      = "rg-${lower(local.name)}-prod-${local.component_name}"
+    uami_resource_group_name = "rg-${lower(local.name)}-prod-${local.component_name}-uami"
     infrastructure_subnet_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-cae-prod/providers/Microsoft.Network/virtualNetworks/vnet-prod/subnets/snet-cae-prod"
   }
 }

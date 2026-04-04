@@ -9,8 +9,9 @@ stack "dev" {
   source = "../../../stacks/container-app"
   path   = "dev"
   values = {
-    name     = local.component_name
-    location = local.location
+    name                = local.component_name
+    location            = local.location
+    resource_group_name = "rg-${lower(local.name)}-dev-cae"
     template = {
       containers = [{
         name   = "gatus"
@@ -35,8 +36,9 @@ stack "prod" {
   source = "../../../stacks/container-app"
   path   = "prod"
   values = {
-    name     = local.component_name
-    location = local.location
+    name                = local.component_name
+    location            = local.location
+    resource_group_name = "rg-${lower(local.name)}-prod-cae"
     template = {
       min_replicas = 1
       max_replicas = 3

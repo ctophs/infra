@@ -1,6 +1,6 @@
-unit "resource-group" {
+unit "component-resource-group" {
   source = "${get_repo_root()}//units/resource-group"
-  path   = "resource-group"
+  path   = "component-resource-group"
   values = {
     name     = values.resource_group_name
     location = values.location
@@ -17,11 +17,21 @@ unit "cae" {
   }
 }
 
+unit "uami-resource-group" {
+  source = "${get_repo_root()}//units/resource-group"
+  path   = "uami-resource-group"
+  values = {
+    name     = values.uami_resource_group_name
+    location = values.location
+  }
+}
+
 unit "uami" {
   source = "${get_repo_root()}//units/uami"
   path   = "uami"
   values = {
-    name     = values.name
-    location = values.location
+    name                = values.name
+    location            = values.location
+    resource_group_name = values.uami_resource_group_name
   }
 }
