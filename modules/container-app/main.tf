@@ -52,10 +52,25 @@ resource "azurerm_container_app" "this" {
   }
 
   dynamic "identity" {
-    for_each = var.identity != null ? [var.identity] : []
+    for_each = var.uami_id != null ? [var.uami_id] : []
     content {
-      type         = identity.value.type
-      identity_ids = identity.value.identity_ids
+      type         = "UserAssigned"
+      identity_ids = [identity.value]
+    }
+  }
+
+  # Registry-Authentifizierung: zwei sich gegenseitig ausschließende Optionen.
+  # Option 1 (bevorzugt): uami_id setzen — verwendet Managed Identity,
+  #   keine Zugangsdaten erforderlich.
+  # Option 2: registry_username + registry_password_secret_name setzen
+  #   — verwendet Benutzername/Passwort-Authentifizierung.
+  dynamic "registry" {
+    for_each = var.uami_id != null || var.registry_username != null ? [1] : []
+    content {
+      server               = var.shared_container_registry
+      identity             = var.uami_id
+      username             = var.registry_username
+      password_secret_name = var.registry_password_secret_name
     }
   }
 }

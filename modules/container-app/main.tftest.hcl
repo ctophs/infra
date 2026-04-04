@@ -7,6 +7,7 @@ run "plan" {
     name                         = "ca-test"
     resource_group_name          = "rg-test"
     container_app_environment_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-test/providers/Microsoft.App/managedEnvironments/cae-test"
+    uami_id                      = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-test/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uami-test"
     template = {
       min_replicas = 0
       max_replicas = 1

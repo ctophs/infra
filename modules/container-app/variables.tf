@@ -48,12 +48,27 @@ variable "ingress" {
   default     = null
 }
 
-variable "identity" {
-  type = object({
-    type         = string
-    identity_ids = optional(list(string), [])
-  })
-  description = "Managed identity configuration."
+variable "uami_id" {
+  type        = string
+  description = "Resource ID of the user-assigned managed identity to assign to the Container App."
+  default     = null
+}
+
+variable "shared_container_registry" {
+  type        = string
+  description = "Server URL of the shared container registry."
+  default     = "pwsshared.azurecr.io"
+}
+
+variable "registry_username" {
+  type        = string
+  description = "Username for registry authentication. Used when uami_id is not set."
+  default     = null
+}
+
+variable "registry_password_secret_name" {
+  type        = string
+  description = "Name of the secret containing the registry password. Used when uami_id is not set."
   default     = null
 }
 

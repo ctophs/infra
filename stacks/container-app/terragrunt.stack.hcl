@@ -15,7 +15,6 @@ unit "container-app" {
     revision_mode = try(values.revision_mode, "Single")
     template      = values.template
     ingress       = try(values.ingress, null)
-    identity      = try(values.identity, null)
     tags          = try(values.tags, {})
     secrets       = try(values.secrets, [])
   }
