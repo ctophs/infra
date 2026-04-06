@@ -15,10 +15,10 @@ infra/
 └── tenant/
     ├── root.hcl                         # Provider-Generierung, gemeinsame Locals für alle Units
     ├── tenant.hcl                       # Tenant-ID und -Name
-    └── <management-group>/              # z. B. modellrechner/
+    └── <workload>/                      # Workload = Management-Group, z. B. modellrechner/
         ├── managementgroup.hcl          # Name, Region, Subscriptions je Stage
-        ├── workload.hcl                 # Bündelt MG- und Catalog-Daten für Workload-Stacks
-        └── <workload>/                  # z. B. container_app_environment/
+        ├── workload.hcl                 # Bündelt MG- und Catalog-Daten für Stacks
+        └── <stack>/                     # z. B. container_app_environment/
             └── terragrunt.stack.hcl     # Stack-Definition mit dev/prod-Blöcken
 ```
 
@@ -38,7 +38,7 @@ infra: terragrunt.stack.hcl
                               └── unit "uami"                 → terraform apply
 ```
 
-**Ebene 1 — Infra-Stack** (`terragrunt.stack.hcl` in diesem Repo):
+**Ebene 1 — Infra-Stack** (`terragrunt.stack.hcl` im Workload-Verzeichnis):
 Referenziert per `source` einen Catalog-Stack und instanziiert ihn je Stage (`dev`, `prod`).
 Liefert über `values` die umgebungsspezifischen Eingabewerte (Namen, Subnet-IDs, …).
 
@@ -89,63 +89,31 @@ Stellt bereit:
 
 Enthält die unveränderlichen Tenant-Daten (ID, Name).
 
-### `<management-group>/managementgroup.hcl`
+### `<workload>/managementgroup.hcl`
 
-Beschreibt die Management-Group: Name, Azure-Region und die Subscription-IDs je Stage.
-Diese Datei bleibt bewusst von `workload.hcl` getrennt — sie beschreibt die fachliche
-Identität der MG, während `workload.hcl` eine rein technische Komfort-Schicht ist.
+Beschreibt den Workload (= Management-Group): Name, Azure-Region und die Subscription-IDs
+je Stage. Diese Datei bleibt bewusst von `workload.hcl` getrennt — sie beschreibt die
+fachliche Identität des Workloads, während `workload.hcl` eine rein technische
+Komfort-Schicht ist.
 
-### `<management-group>/workload.hcl`
+### `<workload>/workload.hcl`
 
 Bündelt `managementgroup.hcl` und `catalog.hcl` in einem einzigen Read, damit
-Workload-Stacks nicht beide Dateien separat einlesen müssen.
-Bei einer neuen Management-Group diese Datei **unverändert kopieren** — sie enthält
-keine MG-spezifischen Werte.
+Stack-Dateien nicht beide Quellen separat einlesen müssen.
+Bei einem neuen Workload diese Datei **unverändert kopieren** — sie enthält keine
+workload-spezifischen Werte.
 
-### `<management-group>/<workload>/terragrunt.stack.hcl`
+### `<workload>/<stack>/terragrunt.stack.hcl`
 
-Definiert die Stacks je Stage (dev, prod). Da Terragrunt-Stacks kein `include`
+Definiert den Stack je Stage (dev, prod). Da Terragrunt-Stacks kein `include`
 unterstützen, werden die gemeinsamen Locals aus `workload.hcl` hier explizit
-ausgepackt. Einzig `component_name` ist workload-spezifisch.
+ausgepackt. Einzig `component_name` ist stack-spezifisch.
 
 ---
 
-## Stack-Hierarchie
+## Einen neuen Stack anlegen
 
-Terragrunt unterstützt verschachtelte Stacks. In diesem Projekt gibt es zwei Ebenen:
-
-```
-infra: terragrunt.stack.hcl
-  └── stack "dev"   ──┐
-  └── stack "prod"  ──┴──► Catalog-Stack (z. B. stacks/container_app_environment)
-                              └── unit "cae-resource-group"   → terraform apply
-                              └── unit "cae"                  → terraform apply
-                              └── unit "uami-resource-group"  → terraform apply
-                              └── unit "uami"                 → terraform apply
-```
-
-**Ebene 1 — Infra-Stack** (`terragrunt.stack.hcl` in diesem Repo):
-Referenziert per `source` einen Catalog-Stack und instanziiert ihn je Stage (`dev`, `prod`).
-Liefert über `values` die umgebungsspezifischen Eingabewerte (Namen, Subnet-IDs, …).
-
-**Ebene 2 — Catalog-Stack** (`stacks/*/terragrunt.stack.hcl` im Catalog-Repo):
-Ist selbst wieder ein Stack, der fachlich zusammengehörige Units bündelt.
-Jede Unit entspricht am Ende einem eigenen `terraform apply`.
-
-Beispiel `container_app_environment` deployt je Stage:
-
-| Unit | Ressource |
-|------|-----------|
-| `cae-resource-group` | Azure Resource Group für das CAE |
-| `cae` | Container App Environment |
-| `uami-resource-group` | Azure Resource Group für die Managed Identity |
-| `uami` | User Assigned Managed Identity |
-
----
-
-## Einen neuen Workload anlegen
-
-1. Verzeichnis unter `tenant/<management-group>/<workload-name>/` anlegen.
+1. Verzeichnis unter `tenant/<workload>/<stack-name>/` anlegen.
 2. `terragrunt.stack.hcl` anlegen:
 
 ```hcl
@@ -155,7 +123,7 @@ locals {
   location       = local.workload.locals.location
   catalog_url    = local.workload.locals.catalog_url
   catalog_ref    = local.workload.locals.catalog_ref
-  component_name = "<name>"   # <-- anpassen
+  component_name = "<name>"   # <-- stack-spezifisch anpassen
 }
 
 stack "dev" {
@@ -179,9 +147,9 @@ stack "prod" {
 
 ---
 
-## Eine neue Management-Group anlegen
+## Einen neuen Workload anlegen
 
-1. Verzeichnis `tenant/<mg-name>/` anlegen.
+1. Verzeichnis `tenant/<workload-name>/` anlegen.
 2. `managementgroup.hcl` anlegen:
 
 ```hcl
@@ -197,8 +165,8 @@ locals {
 }
 ```
 
-3. `workload.hcl` aus einer bestehenden Management-Group **unverändert** kopieren.
-4. Workloads wie oben beschrieben anlegen.
+3. `workload.hcl` aus einem bestehenden Workload **unverändert** kopieren.
+4. Stacks wie oben beschrieben anlegen.
 
 ---
 
@@ -215,7 +183,7 @@ terragrunt stack clean
 terragrunt run --all plan
 
 # Einzelnen Stack planen
-cd tenant/modellrechner/container_app_environment
+cd tenant/modellrechner/container_app_environment   # Workload/Stack
 terragrunt stack generate
 terragrunt run plan
 terragrunt stack clean
