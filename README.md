@@ -24,6 +24,39 @@ infra/
 
 ---
 
+## Stack-Hierarchie
+
+Terragrunt unterstützt verschachtelte Stacks. In diesem Projekt gibt es zwei Ebenen:
+
+```
+infra: terragrunt.stack.hcl
+  └── stack "dev"   ──┐
+  └── stack "prod"  ──┴──► Catalog-Stack (z. B. stacks/container_app_environment)
+                              └── unit "cae-resource-group"   → terraform apply
+                              └── unit "cae"                  → terraform apply
+                              └── unit "uami-resource-group"  → terraform apply
+                              └── unit "uami"                 → terraform apply
+```
+
+**Ebene 1 — Infra-Stack** (`terragrunt.stack.hcl` in diesem Repo):
+Referenziert per `source` einen Catalog-Stack und instanziiert ihn je Stage (`dev`, `prod`).
+Liefert über `values` die umgebungsspezifischen Eingabewerte (Namen, Subnet-IDs, …).
+
+**Ebene 2 — Catalog-Stack** (`stacks/*/terragrunt.stack.hcl` im Catalog-Repo):
+Ist selbst wieder ein Stack, der fachlich zusammengehörige Units bündelt.
+Jede Unit entspricht am Ende einem eigenen `terraform apply`.
+
+Beispiel `container_app_environment` deployt je Stage:
+
+| Unit | Ressource |
+|------|-----------|
+| `cae-resource-group` | Azure Resource Group für das CAE |
+| `cae` | Container App Environment |
+| `uami-resource-group` | Azure Resource Group für die Managed Identity |
+| `uami` | User Assigned Managed Identity |
+
+---
+
 ## Schlüsseldateien
 
 ### `catalog.hcl`
