@@ -182,10 +182,9 @@ terragrunt stack clean
 # Alle Units eines Stacks planen (Dry-Run, kein Azure-Zugriff nötig)
 terragrunt run --all plan
 
-# Einzelnen Stack planen
-cd tenant/modellrechner/container_app_environment   # Workload/Stack
+# Einzelnen Stack generieren und aufräumen
+cd tenant/modellrechner/container_app_environment
 terragrunt stack generate
-terragrunt run plan
 terragrunt stack clean
 ```
 

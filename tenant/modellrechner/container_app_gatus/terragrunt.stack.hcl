@@ -16,7 +16,7 @@ stack "dev" {
   values = {
     name                = local.component_name
     location            = local.location
-    resource_group_name = "rg-${local.name}-dev-cae"
+    resource_group_name = "rg-${local.name}-dev-${local.component_name}"
     template = {
       containers = [{
         name   = "gatus"
@@ -30,10 +30,6 @@ stack "dev" {
       external_enabled = false
       target_port      = 8080
     }
-    secrets = [{
-      name  = "example"
-      value = "example"
-    }]
   }
 }
 
@@ -43,7 +39,7 @@ stack "prod" {
   values = {
     name                = local.component_name
     location            = local.location
-    resource_group_name = "rg-${local.name}-prod-cae"
+    resource_group_name = "rg-${local.name}-prod-${local.component_name}"
     template = {
       min_replicas = 1
       max_replicas = 3
